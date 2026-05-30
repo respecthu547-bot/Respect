@@ -1,0 +1,250 @@
+/* ============================================================
+   AMRUTH WATER — scoped under .amruth-page
+   Ported verbatim from the original index.html, only namespaced.
+   Color tokens & spacing system are unchanged.
+   ============================================================ */
+.amruth-page {
+  --ink: #0a2b2b;
+  --jade: #0d4d4d;
+  --jade-light: #3a8a86;
+  --gold: #bf9b30;
+  --gold-soft: #d9bd6a;
+  --saffron: #e0823a;
+  --cream: #f7efdf;
+  --cream-deep: #efe3cb;
+  --ivory: #fcf8ef;
+  --shadow: rgba(10, 43, 43, 0.14);
+  --serif: 'Cormorant Garamond', serif;
+  --display: 'Marcellus', serif;
+  --body: 'Mukta', sans-serif;
+
+  font-family: var(--body);
+  background: var(--ivory);
+  color: var(--ink);
+  line-height: 1.7;
+}
+/* grain overlay */
+.amruth-page::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.amruth-page ::selection { background: var(--gold); color: var(--ivory); }
+
+.amruth-page h1, .amruth-page h2, .amruth-page h3 { font-family: var(--display); font-weight: 400; letter-spacing: .01em; }
+.amruth-page .serif { font-family: var(--serif); }
+
+/* ---------- NAV ---------- */
+.amruth-page nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px 7vw; transition: all .5s cubic-bezier(.4,0,.2,1);
+}
+.amruth-page nav.scrolled {
+  padding: 14px 7vw; background: rgba(252,248,239,.82);
+  backdrop-filter: blur(14px); box-shadow: 0 1px 0 rgba(191,155,48,.18);
+}
+.amruth-page .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+.amruth-page .brand .mark { width: 34px; height: 34px; }
+.amruth-page .brand .name { font-family: var(--display); font-size: 1.35rem; letter-spacing: .08em; }
+.amruth-page .brand .sub { font-family: var(--serif); font-style: italic; color: var(--jade-light); font-size: .95rem; margin-left: -4px; }
+.amruth-page .nav-links { display: flex; gap: 38px; align-items: center; }
+.amruth-page .nav-links a {
+  text-decoration: none; color: var(--ink); font-size: .92rem; letter-spacing: .04em;
+  position: relative; text-transform: uppercase; font-weight: 400;
+}
+.amruth-page .nav-links a::after {
+  content: ""; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px;
+  background: var(--gold); transition: width .4s cubic-bezier(.4,0,.2,1);
+}
+.amruth-page .nav-links a:hover::after { width: 100%; }
+.amruth-page .nav-cta {
+  border: 1px solid var(--gold); color: var(--jade); padding: 9px 22px; border-radius: 40px;
+  font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; transition: all .4s ease;
+}
+.amruth-page .nav-cta:hover { background: var(--gold); color: var(--ivory); }
+.amruth-page .nav-cta::after { display: none; }
+.amruth-page .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.amruth-page .burger span { width: 24px; height: 2px; background: var(--ink); transition: .3s; }
+
+/* ---------- HERO ---------- */
+.amruth-page .hero {
+  min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 80% 10%, rgba(58,138,134,.25), transparent 55%),
+    radial-gradient(90% 80% at 10% 90%, rgba(191,155,48,.18), transparent 50%),
+    linear-gradient(160deg,#fcf8ef 0%,#f3e9d3 100%);
+}
+/* flowing water gradient blob */
+.amruth-page .water-blob {
+  position: absolute; right: -8vw; top: 50%; transform: translateY(-50%);
+  width: 48vw; height: 48vw; max-width: 680px; max-height: 680px; border-radius: 46% 54% 58% 42%/52% 44% 56% 48%;
+  background: linear-gradient(140deg,#0d4d4d,#3a8a86 60%,#bf9b30);
+  filter: blur(2px); opacity: .92; animation: morph 14s ease-in-out infinite, floaty 9s ease-in-out infinite;
+  box-shadow: inset 0 0 80px rgba(255,255,255,.25),0 40px 80px rgba(13,77,77,.3);
+}
+@keyframes morph {
+  0%,100% { border-radius: 46% 54% 58% 42%/52% 44% 56% 48%; }
+  50% { border-radius: 58% 42% 44% 56%/46% 58% 42% 54%; }
+}
+@keyframes floaty { 0%,100% { transform: translateY(-50%); } 50% { transform: translateY(-54%); } }
+.amruth-page .bottle {
+  position: absolute; right: 8vw; top: 50%; transform: translateY(-50%); z-index: 3;
+  width: 200px; animation: bob 6s ease-in-out infinite; filter: drop-shadow(0 30px 40px rgba(10,43,43,.35));
+}
+@keyframes bob { 0%,100% { transform: translateY(-50%); } 50% { transform: translateY(-56%); } }
+
+.amruth-page .hero-inner { padding: 0 7vw; max-width: 1400px; margin: 0 auto; width: 100%; z-index: 4; position: relative; }
+.amruth-page .eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; color: var(--jade);
+  letter-spacing: .34em; text-transform: uppercase; font-size: .78rem; margin-bottom: 26px;
+}
+.amruth-page .eyebrow::before { content: ""; width: 42px; height: 1px; background: var(--gold); }
+.amruth-page .hero h1 {
+  font-size: clamp(3rem,8vw,7rem); line-height: .95; color: var(--ink); margin-bottom: 8px;
+}
+.amruth-page .hero h1 .devanagari { display: block; font-family: var(--serif); font-style: italic;
+  color: var(--gold); font-size: clamp(2rem,5vw,3.6rem); margin-bottom: 6px; font-weight: 500; }
+.amruth-page .hero h1 em { font-family: var(--serif); font-style: italic; color: var(--jade-light); }
+.amruth-page .hero-tag {
+  font-family: var(--serif); font-size: clamp(1.25rem,2.4vw,1.7rem); max-width: 30ch;
+  color: var(--jade); margin: 26px 0 38px; line-height: 1.4;
+}
+.amruth-page .hero-actions { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+.amruth-page .btn-primary {
+  background: var(--jade); color: var(--ivory); text-decoration: none; padding: 16px 38px; border-radius: 44px;
+  letter-spacing: .06em; text-transform: uppercase; font-size: .9rem; position: relative; overflow: hidden;
+  transition: all .4s cubic-bezier(.4,0,.2,1); box-shadow: 0 14px 30px rgba(13,77,77,.28); cursor: pointer; border: none;
+}
+.amruth-page .btn-primary::before {
+  content: ""; position: absolute; inset: 0; background: var(--gold); transform: translateY(101%);
+  transition: transform .45s cubic-bezier(.4,0,.2,1); z-index: -1;
+}
+.amruth-page .btn-primary span { position: relative; z-index: 1; }
+.amruth-page .btn-primary:hover { box-shadow: 0 18px 40px rgba(191,155,48,.4); transform: translateY(-2px); }
+.amruth-page .btn-primary:hover::before { transform: translateY(0); }
+.amruth-page .btn-ghost { text-decoration: none; color: var(--ink); letter-spacing: .05em; display: inline-flex;
+  align-items: center; gap: 10px; font-size: .95rem; transition: gap .3s ease; }
+.amruth-page .btn-ghost:hover { gap: 16px; color: var(--jade); }
+.amruth-page .btn-ghost .arrow { width: 34px; height: 34px; border: 1px solid var(--gold); border-radius: 50%;
+  display: grid; place-items: center; transition: .3s; }
+.amruth-page .btn-ghost:hover .arrow { background: var(--gold); color: var(--ivory); }
+
+/* ---------- SECTION FRAME ---------- */
+.amruth-page section { position: relative; }
+.amruth-page .pad { padding: 130px 7vw; max-width: 1400px; margin: 0 auto; }
+.amruth-page .sec-label {
+  display: flex; align-items: center; gap: 14px; color: var(--saffron);
+  letter-spacing: .3em; text-transform: uppercase; font-size: .78rem; margin-bottom: 22px;
+}
+.amruth-page .sec-label::before { content: ""; width: 30px; height: 1px; background: var(--saffron); }
+.amruth-page .sec-title { font-size: clamp(2.2rem,4.5vw,3.6rem); line-height: 1.08; color: var(--ink); max-width: 18ch; }
+.amruth-page .sec-title em { font-family: var(--serif); font-style: italic; color: var(--jade-light); }
+
+/* ---------- STORY ---------- */
+.amruth-page .story { background: linear-gradient(180deg,var(--ivory),var(--cream)); }
+.amruth-page .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.amruth-page .story p { font-size: 1.12rem; color: #3a4a4a; margin-top: 24px; max-width: 46ch; }
+.amruth-page .story-quote {
+  font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--jade);
+  border-left: 2px solid var(--gold); padding-left: 24px; margin-top: 36px; line-height: 1.4;
+}
+.amruth-page .mandala-frame { position: relative; display: grid; place-items: center; aspect-ratio: 1; }
+.amruth-page .mandala-frame svg { width: 100%; height: 100%; }
+.amruth-page .mandala-frame .core {
+  position: absolute; width: 46%; height: 46%; border-radius: 50%;
+  background: linear-gradient(150deg,#0d4d4d,#3a8a86 70%,#bf9b30);
+  box-shadow: 0 30px 60px rgba(13,77,77,.35),inset 0 0 50px rgba(255,255,255,.2);
+  animation: spinSlow 26s linear infinite reverse;
+}
+.amruth-page .spin { animation: spinSlow 60s linear infinite; transform-origin: center; }
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+
+/* ---------- PURITY / PROCESS ---------- */
+.amruth-page .purity { background: var(--ink); color: var(--cream); overflow: hidden; }
+.amruth-page .purity .sec-title { color: var(--ivory); }
+.amruth-page .purity .sec-label { color: var(--gold-soft); }
+.amruth-page .purity .sec-label::before { background: var(--gold-soft); }
+.amruth-page .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 36px; margin-top: 70px; }
+.amruth-page .step { position: relative; padding-top: 40px; }
+.amruth-page .step .num {
+  font-family: var(--serif); font-size: 3.2rem; color: var(--gold); line-height: 1;
+  opacity: .4; position: absolute; top: -20px; left: 0;
+}
+.amruth-page .step .ico { width: 48px; height: 48px; margin-bottom: 18px; color: var(--jade-light); }
+.amruth-page .step h3 { font-size: 1.35rem; color: var(--ivory); margin-bottom: 10px; }
+.amruth-page .step p { color: rgba(247,239,223,.65); font-size: .98rem; }
+.amruth-page .step::after { content: ""; position: absolute; top: 50px; right: -18px; width: 8px; height: 8px;
+  border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); transform: rotate(45deg); opacity: .5; }
+.amruth-page .step:last-child::after { display: none; }
+
+/* ---------- PRODUCTS ---------- */
+.amruth-page .products { background: linear-gradient(180deg,var(--cream),var(--ivory)); }
+.amruth-page .prod-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 34px; margin-top: 64px; }
+.amruth-page .card {
+  background: var(--ivory); border: 1px solid rgba(191,155,48,.25); border-radius: 18px;
+  padding: 42px 34px; text-align: center; transition: all .5s cubic-bezier(.16,1,.3,1); position: relative; overflow: hidden;
+}
+.amruth-page .card::before {
+  content: ""; position: absolute; inset: 0; background:
+    radial-gradient(80% 60% at 50% -10%,rgba(58,138,134,.16),transparent 60%);
+  opacity: 0; transition: opacity .5s ease;
+}
+.amruth-page .card:hover { transform: translateY(-10px); box-shadow: 0 30px 60px var(--shadow); border-color: var(--gold); }
+.amruth-page .card:hover::before { opacity: 1; }
+.amruth-page .card .vis { height: 180px; display: grid; place-items: center; margin-bottom: 18px; position: relative; z-index: 1; }
+.amruth-page .card .vis svg { height: 100%; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+.amruth-page .card:hover .vis svg { transform: translateY(-6px) scale(1.04); }
+.amruth-page .card h3 { font-size: 1.5rem; margin-bottom: 6px; position: relative; z-index: 1; }
+.amruth-page .card .vol { color: var(--jade-light); font-family: var(--serif); font-style: italic; font-size: 1.1rem; position: relative; z-index: 1; }
+.amruth-page .card p { color: #4a5a5a; font-size: .96rem; margin: 14px 0 20px; position: relative; z-index: 1; }
+.amruth-page .card .price { font-family: var(--display); font-size: 1.4rem; color: var(--gold); position: relative; z-index: 1; }
+
+/* ---------- VALUES STRIP ---------- */
+.amruth-page .values { background: var(--jade); color: var(--ivory); }
+.amruth-page .val-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 30px; text-align: center; }
+.amruth-page .val .big { font-family: var(--serif); font-size: 3.4rem; color: var(--gold-soft); line-height: 1; }
+.amruth-page .val p { letter-spacing: .06em; text-transform: uppercase; font-size: .82rem; margin-top: 10px; color: rgba(252,248,239,.8); }
+
+/* ---------- CTA ---------- */
+.amruth-page .cta {
+  text-align: center; background:
+    radial-gradient(70% 120% at 50% 0%,rgba(58,138,134,.2),transparent 60%),var(--ivory);
+}
+.amruth-page .cta h2 { font-size: clamp(2.4rem,5vw,4.2rem); color: var(--ink); line-height: 1.05; margin-bottom: 14px; }
+.amruth-page .cta h2 em { font-family: var(--serif); font-style: italic; color: var(--gold); }
+.amruth-page .cta p { font-family: var(--serif); font-size: 1.3rem; color: var(--jade); max-width: 44ch; margin: 0 auto 38px; }
+.amruth-page .subscribe { display: flex; gap: 12px; max-width: 480px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+.amruth-page .subscribe input {
+  flex: 1; min-width: 220px; padding: 16px 24px; border-radius: 44px; border: 1px solid rgba(13,77,77,.25);
+  background: var(--ivory); font-family: var(--body); font-size: 1rem; color: var(--ink); outline: none; transition: .3s;
+}
+.amruth-page .subscribe input:focus { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(191,155,48,.15); }
+
+/* ---------- FOOTER ---------- */
+.amruth-page footer { background: var(--ink); color: rgba(247,239,223,.7); padding: 80px 7vw 36px; }
+.amruth-page .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; max-width: 1400px; margin: 0 auto; }
+.amruth-page footer h4 { font-family: var(--display); color: var(--ivory); font-size: 1.05rem; letter-spacing: .05em; margin-bottom: 18px; }
+.amruth-page footer .brand .name, .amruth-page footer .brand .mark { color: var(--ivory); }
+.amruth-page footer a { color: rgba(247,239,223,.7); text-decoration: none; display: block; margin-bottom: 10px; font-size: .95rem; transition: .3s; }
+.amruth-page footer a:hover { color: var(--gold-soft); padding-left: 5px; }
+.amruth-page footer .tagline { font-family: var(--serif); font-style: italic; margin-top: 18px; max-width: 34ch; color: rgba(247,239,223,.6); }
+.amruth-page .foot-bottom { max-width: 1400px; margin: 56px auto 0; padding-top: 28px; border-top: 1px solid rgba(191,155,48,.2);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; font-size: .85rem; color: rgba(247,239,223,.5); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .amruth-page .nav-links { position: fixed; inset: 0 0 0 30%; background: var(--ink); flex-direction: column;
+    justify-content: center; gap: 30px; transform: translateX(100%); transition: .5s cubic-bezier(.4,0,.2,1); }
+  .amruth-page .nav-links.open { transform: translateX(0); }
+  .amruth-page .nav-links a { color: var(--ivory); font-size: 1.1rem; }
+  .amruth-page .nav-cta { color: var(--gold-soft); border-color: var(--gold-soft); }
+  .amruth-page .burger { display: flex; z-index: 101; }
+  .amruth-page .water-blob { opacity: .5; width: 90vw; height: 90vw; right: -30vw; }
+  .amruth-page .bottle { display: none; }
+  .amruth-page .story-grid, .amruth-page .steps, .amruth-page .prod-grid, .amruth-page .val-grid, .amruth-page .foot-grid { grid-template-columns: 1fr; }
+  .amruth-page .steps { gap: 50px; }
+  .amruth-page .step::after { display: none; }
+  .amruth-page .val-grid { gap: 46px; }
+  .amruth-page .foot-grid { gap: 32px; }
+  .amruth-page .pad { padding: 90px 7vw; }
+}
