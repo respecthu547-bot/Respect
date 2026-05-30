@@ -1,47 +1,65 @@
-# Amruth — Natural Mineral Water Website
+# Amruth & AquaPure — Water Brand Site
 
-A modern, responsive single-page website for **Amruth**, a natural mineral water brand.
-Built with plain HTML, CSS, and vanilla JavaScript — no build step required.
+Two natural-mineral-water brand pages, now built with **React + Vite** and
+animated with **Framer Motion**. Every page section fades and lifts into view on
+scroll, with a staggered delay so content reveals sequentially rather than all
+at once.
 
-## ✨ Features
+## ✨ What's here
 
-- **Hero section** with an animated CSS water bottle and floating bubbles
-- **Feature highlights** (spring sourced, lab tested, eco bottles, home delivery)
-- **About** section telling the brand story
-- **Products** grid with four bottle sizes and pricing
-- **Process** timeline — "From Spring to Sip" (7 steps)
-- **Testimonials** from customers
-- **Contact / order form** with client-side validation
-- Sticky glassmorphic navbar, mobile hamburger menu
-- Scroll-reveal animations and fully responsive layout
+- **`/` — Amruth** ("The Nectar of Purity"): jade/gold editorial design with a
+  morphing water blob, bobbing bottle and spinning mandala.
+- **`/aqua` — AquaPure**: blue/aqua design with a glass bottle, rising bubbles,
+  features, products, process, testimonials and a contact form.
+- A floating link in the corner of each page hops between the two demos.
+
+The decorative CSS keyframe animations (blob morph, bottle bob, mandala spin,
+floating bottle, rising bubbles) are **left untouched** — Framer Motion only
+adds the scroll-reveal choreography on top.
 
 ## 🚀 Running locally
 
-No dependencies needed — just open the file in a browser:
-
 ```bash
-open index.html        # macOS
-xdg-open index.html    # Linux
+npm install
+npm run dev       # start the Vite dev server
+npm run build     # production build → dist/
+npm run preview   # serve the production build
 ```
 
-Or serve it with any static server:
+## 🎞️ How the scroll animation works
 
-```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
-```
+`src/components/Reveal.jsx` exposes two primitives built on Framer Motion:
+
+- **`<RevealSection>`** — wraps a whole page section. It fades + lifts in the
+  first time it scrolls into view (`whileInView` + `once`) and orchestrates its
+  children via `staggerChildren`. An `index` prop adds a small per-section base
+  delay so above-the-fold sections cascade in sequence.
+- **`<RevealItem>`** — the child counterpart; drop it around cards, headings and
+  paragraphs to inherit the parent section's stagger.
 
 ## 📁 Structure
 
 ```
 .
-├── index.html   # Markup & content
-├── styles.css   # Styling, layout, animations
-└── script.js    # Nav, scroll reveal, form handling
+├── index.html              # Vite entry (mounts the React app)
+├── vite.config.js
+├── src/
+│   ├── main.jsx            # Router: / → Amruth, /aqua → AquaPure
+│   ├── index.css          # Shared reset + page-switch link
+│   ├── components/
+│   │   └── Reveal.jsx      # Framer Motion scroll-reveal primitives
+│   └── pages/
+│       ├── Amruth.jsx / amruth.css
+│       └── Aqua.jsx   / aqua.css
+└── legacy/                 # Original static HTML/CSS/JS (pre-React)
+    ├── index.html
+    ├── styles.css
+    └── script.js
 ```
 
 ## 🎨 Customising
 
-- **Colors** live in CSS variables at the top of `styles.css` (`:root`).
-- **Products & prices** are in the `#products` section of `index.html`.
-- **Contact details** are in the `#contact` section.
+- **Colors** live as CSS variables scoped to each page wrapper
+  (`.amruth-page` in `src/pages/amruth.css`, `.aqua-page` in `aqua.css`).
+- **Animation timing** (durations, easing, stagger, per-section delay) lives in
+  `src/components/Reveal.jsx`.
